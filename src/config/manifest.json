@@ -1,0 +1,289 @@
+{
+  "site": {
+    "collectionName": "Ether Archive",
+    "supply": "4,088",
+    "mintDate": "2026-10-31T17:00:00Z",
+    "apiBaseUrl": "https://ether-archive-api.e-gndz-33.workers.dev",
+    "presaleCheckPath": "/api/presale/check",
+    "openSeaUrl": "https://opensea.io/collection/ether-archive",
+    "xUrl": "https://x.com/EthArchiveNFT",
+    "reminderUrl": "https://opensea.io/collection/ether-archive",
+    "telegramUrl": "https://t.me/etherarxhive"
+  },
+  "brand": {
+    "logoText": "ETHER",
+    "logoSuffix": "ARCHIVE"
+  },
+  "links": {
+    "home": "#home",
+    "mint": "#mint",
+    "about": "#about",
+    "presale": "#presale",
+    "roadmap": "#roadmap",
+    "faq": "#faq",
+    "footerTop": "#home"
+  },
+  "navigation": {
+    "mint": {
+      "label": "MINT",
+      "href": "#mint"
+    },
+    "about": {
+      "label": "ABOUT",
+      "href": "#about"
+    },
+    "presale": {
+      "label": "PRESALE",
+      "href": "#presale"
+    },
+    "openSeaLabel": "OPENSEA",
+    "xLabel": "X / TWITTER",
+    "telegramLabel": "TELEGRAM"
+  },
+  "hero": {
+    "eyebrow": "A RECORD OF THE NETWORK",
+    "indexLabel": "[ 001 — 4088 ]",
+    "titleLine1": "THE SKY",
+    "titleLine2": "REMEMBERS",
+    "titlePunctuation": ".",
+    "description": "4,088 unique skies formed from traces people left on Ethereum. A living archive of a network, preserved as one-of-one digital artifacts.",
+    "reminderLabel": "SETUP REMINDER ON OPENSEA",
+    "presaleLabel": "CHECK PRESALE",
+    "scrollLabel": "SCROLL TO EXPLORE",
+    "metaPrimary": "4,088 / 1 OF 1",
+    "metaSecondary": "ETHEREUM · DIGITAL ART"
+  },
+  "countdown": {
+    "units": {
+      "days": "DAYS",
+      "hours": "HOURS",
+      "minutes": "MINUTES",
+      "seconds": "SECONDS"
+    }
+  },
+  "mint": {
+    "eyebrow": "THE ARCHIVE OPENS",
+    "dateHeading": "31 OCTOBER 2026",
+    "timeLabel": "20:00 GMT+3",
+    "subLabel": "ON-CHAIN ARTIFACTS"
+  },
+  "presale": {
+    "eyebrow": "ACCESS / 01",
+    "titleLine1": "YOUR PLACE",
+    "titleLine2": "IN THE ARCHIVE",
+    "titlePunctuation": ".",
+    "description": "Connect your Ethereum wallet to check whether it has been included in the presale allowlist.",
+    "panelLabel": "ALLOWLIST VERIFICATION",
+    "networkLabel": "ETH MAINNET",
+    "connectTitle": "CONNECT WALLET",
+    "connectedTitle": "WALLET CONNECTED",
+    "walletPrompt": "Connect the wallet you intend to use. Your address will be checked against the project allowlist.",
+    "eligibleTitle": "YOU ARE ELIGIBLE.",
+    "eligibleDescription": "Wallet verified against the allowlist.",
+    "ineligibleTitle": "NOT ON THE LIST",
+    "securityNote": "NEVER SHARE YOUR SEED PHRASE OR PRIVATE KEY.",
+    "loadingButton": "PLEASE WAIT",
+    "connectButton": "CONNECT WALLET",
+    "retryButton": "CHECK AGAIN",
+    "messages": {
+      "noWallet": "No Ethereum wallet detected. Install MetaMask or open this page in a wallet-enabled browser.",
+      "rejected": "Wallet connection was rejected.",
+      "connectError": "Could not connect to the wallet. Please try again.",
+      "eligible": "You are eligible.",
+      "ineligible": "This wallet is not on the presale allowlist.",
+      "apiError": "The allowlist API could not be reached from this site. Check the API URL, backend status, and allowed origin.",
+      "corsError": "The backend rejected this website origin (CORS). Its FRONTEND_URL must exactly match the address shown in the browser, including https:// and www if present.",
+      "httpError": "The allowlist API returned an HTTP error. Check the API response and backend logs."
+    },
+    "sectionIndex": "ACCESS / 01",
+    "checkingMessage": "Checking allowlist…",
+    "connectingMessage": "Connecting wallet…",
+    "notEligibleTitle": "NOT ON THE LIST",
+    "apiContract": {
+      "method": "POST",
+      "path": "/api/presale/check",
+      "requestBody": {
+        "wallet": "0x0000000000000000000000000000000000000000"
+      },
+      "successResponse": {
+        "eligible": true
+      },
+      "ineligibleResponse": {
+        "eligible": false
+      }
+    }
+  },
+  "about": {
+    "sectionIndex": "01 / THE IDEA",
+    "sectionLabel": "ABOUT THE ARCHIVE",
+    "sections": [
+      {
+        "eyebrow": "A TRACE BECOMES A STAR",
+        "titleLine1": "EVERY BLOCK",
+        "titleLine2": "LEAVES A TRACE",
+        "titlePunctuation": ".",
+        "paragraphs": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit tempus porttitor."
+        ],
+        "linkLabel": "EXPLORE THE COLLECTION",
+        "linkHref": "site.openSeaUrl",
+        "image": "",
+        "imageAlt": "Ether Archive — first conceptual artwork",
+        "imageLabel": "IMAGE PLACEHOLDER — 01",
+        "imageCode": "EA—001"
+      },
+      {
+        "eyebrow": "A MATHEMATICAL MEMORY",
+        "titleLine1": "THE NETWORK,",
+        "titleLine2": "REIMAGINED",
+        "titlePunctuation": ".",
+        "paragraphs": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed odio dui. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus mollis interdum."
+        ],
+        "linkLabel": "DISCOVER THE JOURNEY",
+        "linkHref": "#roadmap",
+        "image": "",
+        "imageAlt": "Ether Archive — second conceptual artwork",
+        "imageLabel": "IMAGE PLACEHOLDER — 02",
+        "imageCode": "04:088"
+      }
+    ]
+  },
+  "artwork": {
+    "caption": "FIG. 001 — NETWORK MEMORY",
+    "verticalCaption": "TRACE / PRESERVE / REMEMBER",
+    "imageOneCode": "EA—001",
+    "imageTwoCode": "04:088",
+    "heroImage": "",
+    "heroImageAlt": "Abstract orbital artwork inspired by an Ethereum night sky",
+    "starfield": {
+      "enabled": true,
+      "count": 110,
+      "minimumOpacity": 0.18,
+      "opacityRange": 0.7,
+      "color": "#ffffff"
+    },
+    "brandMark": {
+      "enabled": true,
+      "shape": "diamond"
+    }
+  },
+  "roadmap": {
+    "eyebrow": "02 / THE TIMELINE",
+    "title": "THE ROAD AHEAD",
+    "titlePunctuation": ".",
+    "description": "One archive. A timeline still being written.",
+    "items": [
+      {
+        "date": "31 OCT",
+        "title": "PROJECT LAUNCH",
+        "description": "THE ARCHIVE OPENS",
+        "opacity": 1
+      },
+      {
+        "date": "TBA",
+        "title": "COMING SOON",
+        "description": "DETAILS TO FOLLOW",
+        "opacity": 0.5
+      },
+      {
+        "date": "TBA",
+        "title": "COMING SOON",
+        "description": "DETAILS TO FOLLOW",
+        "opacity": 0.5
+      },
+      {
+        "date": "TBA",
+        "title": "COMING SOON",
+        "description": "DETAILS TO FOLLOW",
+        "opacity": 0.5
+      }
+    ],
+    "sectionLabel": "02 / THE TIMELINE"
+  },
+  "faq": {
+    "eyebrow": "03 / GOOD TO KNOW",
+    "titleLine1": "QUESTIONS,",
+    "titleLine2": "ANSWERED",
+    "titlePunctuation": ".",
+    "description": "A few details before the archive opens.",
+    "items": [
+      [
+        "What is Ether Archive?",
+        "Ether Archive is a generative cosmic data-archive capturing the immutable history of the Ethereum blockchain. It converts true on-chain block data (hashes, gas usage, timestamps, and miner/validator signatures) into unique celestial and constellation maps."
+      ],
+      [
+        "Are these images randomly generated?",
+        "No. Every single piece is deterministically rendered from actual Ethereum block data. The cryptographic hash determines the star coordinates, network activity dictates the cosmic dust density, and historical metrics define stellar temperatures and eras."
+      ],
+      [
+        "Is every piece unique?",
+        "Yes. Each work is generated from a distinct set of parameters within the generation system."
+      ],
+      [
+        "What is the total supply of the collection?",
+        "The collection consists of a strictly limited supply of 4,088 unique pieces, representing historical milestones and blocks on the Ethereum network."
+      ],
+      [
+        "How are royalties (creator earnings) handled?",
+        "To support the continuous development and preservation of the archive, creator earnings are enforced on-chain at a healthy, collector-friendly rate."
+      ]
+    ],
+    "sectionLabel": "03 / GOOD TO KNOW"
+  },
+  "footer": {
+    "taglineLine1": "A record of the network.",
+    "taglineLine2": "A memory of what we leave behind.",
+    "exploreLabel": "EXPLORE",
+    "followLabel": "FOLLOW",
+    "links": {
+      "mint": "Mint",
+      "about": "About",
+      "presale": "Presale check",
+      "roadmap": "Roadmap",
+      "faq": "FAQ"
+    },
+    "openSeaLabel": "OpenSea",
+    "xLabel": "X / Twitter",
+    "copyright": "© 2026 ETHER ARCHIVE",
+    "bottomLine": "MADE OF TRACES. BUILT TO REMEMBER.",
+    "backToTop": "BACK TO TOP ↑",
+    "exploreLinks": {
+      "mintHref": "#mint",
+      "aboutHref": "#about",
+      "presaleHref": "#presale",
+      "roadmapHref": "#roadmap",
+      "faqHref": "#faq"
+    },
+    "backToTopHref": "#home",
+    "telegramLabel": "Telegram"
+  },
+  "accessibility": {
+    "toggleNavigation": "Toggle navigation",
+    "openSea": "OpenSea collection",
+    "xProfile": "Ether Archive on X",
+    "orbitalArtwork": "Abstract orbital artwork inspired by an Ethereum night sky",
+    "home": "Ether Archive home",
+    "countdown": "Time until mint",
+    "telegram": "Ether Archive on Telegram"
+  },
+  "fonts": {
+    "heading": "Exo 2",
+    "paragraph": "Work Sans",
+    "monospace": "IBM Plex Mono",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+  },
+  "assets": {
+    "favicon": "/favicon.svg",
+    "logoSvg": "/logos/ether-archive-mark.svg",
+    "heroImage": "",
+    "aboutImageOne": "",
+    "aboutImageTwo": "",
+    "openSeaIcon": "/logos/opensea.svg",
+    "xIcon": "/logos/x.svg",
+    "imageBehavior": "No raster artwork is used. Hero and About visuals are CSS geometry. Replace SVG files in public/logos/ to customize marks.",
+    "telegramIcon": "/logos/telegram.svg"
+  }
+}
