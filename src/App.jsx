@@ -1,32 +1,50 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { BrowserProvider } from "ethers";
 import { manifest } from "./config/manifest.js";
+import WLPage from "./pages/WLPage.jsx";
 
-const config = manifest.site;
-const commands = [
-  { key: "mint", command: "//mint", label: "MINT", description: "Minting details", output: "The archive opens 31 OCT 2026 at 20:00 GMT+3. 4,088 unique 1/1 works.\nMinting will be announced through the official project links." },
-  { key: "presale_check", command: "//presale_check", label: "PRESALE CHECK", description: "Checking your eligibility", output: "Connect your Ethereum wallet to verify whether it is included in the allowlist." },
-  { key: "about", command: "//about", label: "ABOUT", description: "About Ether Archive", output: "Ethereum was never the work of a single hand. Ether Archive preserves traces people left on the network — 4,088 unique skies, each a record of a moment in time." },
-  { key: "faq", command: "//faq", label: "FAQ", description: "Frequently asked questions", output: "Answers to the most common questions about Ether Archive." },
-  { key: "roadmap", command: "//roadmap", label: "ROADMAP", description: "Project roadmap", output: "The archive opens on 31 October. Further milestones will be announced in due course." },
-];
-const faqItems = [
-  ["What is Ether Archive?", "Ether Archive is a collection of 4,088 unique one-of-one digital artworks inspired by the traces people leave on Ethereum."],
-  ["How many pieces are in the collection?", "The collection consists of 4,088 unique pieces. Each artwork is intended to stand on its own."],
-  ["When does the project launch?", "The launch is scheduled for 31 October 2026 at 20:00 GMT+3. The countdown above displays the time remaining."],
-  ["How do I check presale eligibility?", "Open //presale_check and connect the Ethereum wallet you want to verify. The site checks the address against the project's allowlist API."],
-  ["Where can I follow updates?", "Use the OpenSea and X links at the top of this site for project updates. Additional links can be configured before launch."],
-];
+const { site, terminal: content, assets, footer } = manifest;
+const commands = content.commands;
+const faqItems = content.faqItems;
 
-function BrandMark({ src, alt = "" }) { return <img className="brand-mark" src={src} alt={alt} />; }
+function BrandMark({ src, alt = "" }) {
+  return <img className="brand-mark" src={src} alt={alt} />;
+}
 
 function Countdown() {
-  const target = new Date(config.mintDate).getTime();
+  const target = site.mintDate ? new Date(site.mintDate).getTime() : NaN;
   const [now, setNow] = useState(Date.now());
-  useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer); }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  if (!Number.isFinite(target)) {
+    return <div className="countdown countdown-tba"><span className="countdown-value">{content.countdownTba}</span></div>;
+  }
+
   const remaining = Math.max(0, target - now);
-  const units = [["D", Math.floor(remaining / 86400000)], ["H", Math.floor((remaining / 3600000) % 24)], ["M", Math.floor((remaining / 60000) % 60)], ["S", Math.floor((remaining / 1000) % 60)]];
-  return <div className="countdown" aria-label="Time to launch">{units.map(([label, value], i) => <React.Fragment key={label}><div className="countdown-unit"><span className="countdown-value">{String(value).padStart(2, "0")}</span><span className="countdown-label">{label}</span></div>{i < units.length - 1 && <span className="countdown-colon">:</span>}</React.Fragment>)}</div>;
+  const units = [
+    [content.countdownUnits.days, Math.floor(remaining / 86400000)],
+    [content.countdownUnits.hours, Math.floor((remaining / 3600000) % 24)],
+    [content.countdownUnits.minutes, Math.floor((remaining / 60000) % 60)],
+    [content.countdownUnits.seconds, Math.floor((remaining / 1000) % 60)],
+  ];
+
+  return (
+    <div className="countdown" aria-label={content.countdownAriaLabel}>
+      {units.map(([label, value], index) => (
+        <React.Fragment key={label}>
+          <div className="countdown-unit">
+            <span className="countdown-value">{String(value).padStart(2, "0")}</span>
+            <span className="countdown-label">{label}</span>
+          </div>
+          {index < units.length - 1 && <span className="countdown-colon">:</span>}
+        </React.Fragment>
+      ))}
+    </div>
+  );
 }
 
 function Terminal() {
@@ -41,107 +59,260 @@ function Terminal() {
   const activeCommand = useMemo(() => commands.find((item) => item.key === active), [active]);
 
   useEffect(() => {
-    const goHome = () => { setActive(null); setInput(""); setStatus("idle"); setResult(""); setWallet(""); };
+    const goHome = () => {
+      setActive(null);
+      setInput("");
+      setStatus("idle");
+      setResult("");
+      setWallet("");
+    };
     window.addEventListener("terminal-home", goHome);
     return () => window.removeEventListener("terminal-home", goHome);
   }, []);
 
-  // The intro hint cycles quickly; once a command is selected, its title and next hint stay fixed.
   useEffect(() => {
-    if (activeCommand) { setTyped(""); return; }
-    const phrases = ["type //mint for minting details", "type //presale_check to check eligibility", "type //about to learn about the archive", "type //faq for questions", "type //roadmap to view milestones"];
-    let phraseIndex = 0, index = 0, deleting = false, timeout;
+    if (activeCommand) {
+      setTyped("");
+      return undefined;
+    }
+
+    const phrases = content.introPhrases;
+    let phraseIndex = 0;
+    let index = 0;
+    let deleting = false;
+    let timeout;
+
     const tick = () => {
       const phrase = phrases[phraseIndex];
       if (!deleting) {
-        index += 1; setTyped(phrase.slice(0, index));
-        if (index >= phrase.length) { deleting = true; timeout = window.setTimeout(tick, 850); return; }
-        timeout = window.setTimeout(tick, 35);
+        index += 1;
+        setTyped(phrase.slice(0, index));
+        if (index >= phrase.length) {
+          deleting = true;
+          timeout = window.setTimeout(tick, content.typing.pauseAtEnd);
+          return;
+        }
+        timeout = window.setTimeout(tick, content.typing.typeSpeed);
       } else {
-        index -= 1; setTyped(phrase.slice(0, index));
-        if (index <= 0) { deleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; timeout = window.setTimeout(tick, 120); return; }
-        timeout = window.setTimeout(tick, 12);
+        index -= 1;
+        setTyped(phrase.slice(0, index));
+        if (index <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          timeout = window.setTimeout(tick, content.typing.pauseAtStart);
+          return;
+        }
+        timeout = window.setTimeout(tick, content.typing.deleteSpeed);
       }
     };
-    tick(); return () => window.clearTimeout(timeout);
+
+    tick();
+    return () => window.clearTimeout(timeout);
   }, [activeCommand]);
 
   useEffect(() => {
-    if (!activeCommand) { setDisplayed(""); return; }
-    setDisplayed(""); let i = 0;
-    const interval = window.setInterval(() => { i += 1; setDisplayed(activeCommand.output.slice(0, i)); if (i >= activeCommand.output.length) window.clearInterval(interval); }, 7);
+    if (!activeCommand) {
+      setDisplayed("");
+      return undefined;
+    }
+
+    setDisplayed("");
+    let index = 0;
+    const interval = window.setInterval(() => {
+      index += 1;
+      setDisplayed(activeCommand.output.slice(0, index));
+      if (index >= activeCommand.output.length) window.clearInterval(interval);
+    }, content.typing.outputSpeed);
     return () => window.clearInterval(interval);
   }, [activeCommand]);
 
-  function chooseCommand(key) {
-    if (key === "home" || key === "clear") { setActive(null); setInput(""); setStatus("idle"); setResult(""); setWallet(""); return; }
-    const normalized = String(key || "").trim().toLowerCase().replace(/^\//, "").replace(/\s+/g, "_");
-    const found = commands.find((item) => item.key === normalized || item.command.toLowerCase() === `//${normalized}` || item.label.toLowerCase().replace(/\s+/g, "_") === normalized);
-    if (found) { setActive(found.key); setInput(""); setStatus("idle"); setResult(""); setWallet(""); return; }
-    if (normalized === "next" || normalized === "//next") {
-      const idx = commands.findIndex((item) => item.key === active);
-      setActive(commands[(idx + 1 + commands.length) % commands.length].key); setInput(""); setStatus("idle"); setResult(""); setWallet(""); return;
+  function resetCommandState() {
+    setInput("");
+    setStatus("idle");
+    setResult("");
+    setWallet("");
+  }
+
+  function chooseCommand(value) {
+    const raw = String(value || "").trim();
+    const normalized = raw.toLowerCase().replace(/^\/+/, "").replace(/\s+/g, "_");
+
+    if (content.commandAliases.home.includes(normalized) || content.commandAliases.clear.includes(normalized)) {
+      setActive(null);
+      resetCommandState();
+      return;
     }
-    if (normalized === "prev" || normalized === "previous" || normalized === "back") {
-      const idx = commands.findIndex((item) => item.key === active);
-      setActive(commands[(idx <= 0 ? commands.length : idx) - 1].key); setInput(""); setStatus("idle"); setResult(""); setWallet(""); return;
+
+    const found = commands.find((item) =>
+      item.key === normalized ||
+      item.command.toLowerCase() === `//${normalized}` ||
+      item.label.toLowerCase().replace(/\s+/g, "_") === normalized
+    );
+
+    if (found) {
+      setActive(found.key);
+      resetCommandState();
+      return;
     }
-    setResult(`UNKNOWN COMMAND: ${String(key).trim() || "(empty)"}. Try //mint, //presale_check, //about, //faq, //roadmap, or //next.`);
+
+    if (content.commandAliases.next.includes(normalized)) {
+      const currentIndex = commands.findIndex((item) => item.key === active);
+      setActive(commands[(currentIndex + 1 + commands.length) % commands.length].key);
+      resetCommandState();
+      return;
+    }
+
+    if (content.commandAliases.previous.includes(normalized)) {
+      const currentIndex = commands.findIndex((item) => item.key === active);
+      setActive(commands[(currentIndex <= 0 ? commands.length : currentIndex) - 1].key);
+      resetCommandState();
+      return;
+    }
+
+    setResult(content.messages.unknownCommand.replace("{input}", raw || content.messages.emptyInput).replace("{commands}", commands.map((item) => item.command).join(", ")).replace("{next}", content.commandAliases.next[0]));
     setStatus("error");
   }
 
   async function connectWallet() {
-    setStatus("loading"); setResult("");
+    setStatus("loading");
+    setResult("");
     try {
-      if (!window.ethereum) throw new Error("No Ethereum wallet detected. Open this site in MetaMask or install a wallet extension.");
-      const provider = new BrowserProvider(window.ethereum); await provider.send("eth_requestAccounts", []);
-      const signer = await provider.getSigner(); const address = await signer.getAddress(); setWallet(address);
-      const base = String(config.apiBaseUrl || "").replace(/\/$/, ""); const path = config.presaleCheckPath || "/api/presale/check";
-      const response = await fetch(`${base}${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ wallet: address }) });
+      if (!window.ethereum) throw new Error(content.messages.noWallet);
+      const provider = new BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = await provider.getSigner();
+      const address = await signer.getAddress();
+      setWallet(address);
+
+      const base = String(site.apiBaseUrl || "").replace(/\/$/, "");
+      const path = site.presaleCheckPath || content.apiFallbackPath;
+      const response = await fetch(`${base}${path}`, {
+        method: content.apiMethod,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [content.walletRequestField]: address }),
+      });
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || `API returned HTTP ${response.status}`);
-      if (typeof data.eligible !== "boolean") throw new Error("Unexpected response from allowlist API.");
-      setStatus(data.eligible ? "eligible" : "ineligible"); setResult(data.eligible ? "ACCESS GRANTED — YOU ARE ELIGIBLE." : "ACCESS DENIED — WALLET NOT FOUND IN ALLOWLIST.");
-    } catch (error) { setStatus("error"); setResult(error?.code === 4001 ? "WALLET CONNECTION REJECTED." : (error?.message || "COULD NOT VERIFY ELIGIBILITY.")); }
+      if (!response.ok) throw new Error(data.error || content.messages.apiHttpError.replace("{status}", response.status));
+      if (typeof data.eligible !== "boolean") throw new Error(content.messages.unexpectedApiResponse);
+
+      setStatus(data.eligible ? "eligible" : "ineligible");
+      setResult(data.eligible ? content.messages.eligible : content.messages.ineligible);
+    } catch (error) {
+      setStatus("error");
+      setResult(error?.code === 4001 ? content.messages.walletRejected : (error?.message || content.messages.walletError));
+    }
   }
 
-  return <main className="terminal-layout">
-    <aside className="command-column">
-      <div className="column-label">AVAILABLE COMMANDS <span>[ 05 ]</span></div>
-      {commands.map((item, i) => <button key={item.key} className={`command-link ${active === item.key ? "active" : ""}`} onClick={() => chooseCommand(item.key)}><span className="command-number">0{i + 1}</span><span>{item.command}</span><span className="command-arrow">↗</span></button>)}
-      <div className="command-hint">SELECT A COMMAND TO CONTINUE<span className="blinking-cursor">_</span></div>
-    </aside>
+  return (
+    <main className="terminal-layout">
+      <aside className="command-column">
+        <div className="column-label">{content.availableCommands} <span>{content.commandCount.replace("{count}", String(commands.length).padStart(2, "0"))}</span></div>
+        {commands.map((item, index) => (
+          <button key={item.key} className={`command-link ${active === item.key ? "active" : ""}`} onClick={() => chooseCommand(item.key)}>
+            <span className="command-number">{String(index + 1).padStart(2, "0")}</span>
+            <span>{item.command}</span>
+            <span className="command-arrow">{content.commandArrow}</span>
+          </button>
+        ))}
+        <div className="command-hint">{content.selectCommand}<span className="blinking-cursor">_</span></div>
+      </aside>
 
-    <section className="terminal-output" aria-live="polite">
-      <div className="output-topline"><span>STDOUT / ETHER ARCHIVE</span><span>{activeCommand ? `COMMAND: ${activeCommand.command}` : "AWAITING INPUT"}</span></div>
-      <div className={`typing-line ${activeCommand ? "typing-line-active" : ""}`}>
-        <span className="prompt-mark">›</span>
-        {activeCommand ? <><span className="active-page-name">{activeCommand.command}</span><span className="next-hint">type //next for next page</span></> : <span>{typed}</span>}
-        <span className="typing-cursor">█</span>
-      </div>
-      {activeCommand && <div className="command-output">
-        <div className="output-heading">{activeCommand.label} <span>/{activeCommand.key.toUpperCase()}</span></div>
-        <p className="output-text">{displayed}</p>
-        {active === "mint" && <div className="output-actions"><a href={config.reminderUrl} target="_blank" rel="noreferrer">OPEN OPENSEA ↗</a><span>PUBLIC MINT / 31 OCT 2026</span></div>}
-        {active === "presale_check" && <div className="wallet-check"><div className="wallet-address">{wallet ? `${wallet.slice(0, 8)}…${wallet.slice(-6)}` : "WALLET: NOT CONNECTED"}</div><button className="terminal-button" onClick={connectWallet} disabled={status === "loading"}>{status === "loading" ? "VERIFYING…" : wallet ? "CHECK AGAIN" : "CONNECT WALLET ↗"}</button>{result && <p className={`terminal-result ${status}`}>{result}</p>}</div>}
-        {active === "about" && <div className="output-actions"><a href={config.openSeaUrl} target="_blank" rel="noreferrer">VIEW COLLECTION ↗</a><span>4,088 / 1 OF 1</span></div>}
-        {active === "faq" && <div className="faq-list">{faqItems.map(([question, answer], i) => <div className={`faq-item ${openFaq === i ? "faq-open" : ""}`} key={question}><button className="faq-question" onClick={() => setOpenFaq(openFaq === i ? -1 : i)} aria-expanded={openFaq === i}><span>{String(i + 1).padStart(2, "0")}</span><b>{question}</b><i>{openFaq === i ? "−" : "+"}</i></button>{openFaq === i && <p className="faq-answer">{answer}</p>}</div>)}</div>}
-        {active === "roadmap" && <div className="roadmap-list"><div className="roadmap-item roadmap-current"><span className="roadmap-node"/><span className="roadmap-date">OCT 31</span><div><b>PROJECT LAUNCH</b><p>The archive opens.</p></div></div><div className="roadmap-item roadmap-future"><span className="roadmap-node"/><span className="roadmap-date">TBA</span><div><b>TO BE ANNOUNCED</b><p>Further details coming soon.</p></div></div></div>}
-      </div>}
-      <form className="terminal-input-row" onSubmit={(event) => { event.preventDefault(); chooseCommand(input); }}><label htmlFor="terminal-command">›</label><input id="terminal-command" value={input} onChange={(event) => setInput(event.target.value)} placeholder="type a command and press enter…" autoComplete="off" spellCheck="false" aria-label="Enter a site command"/><button type="submit">ENTER ↵</button></form>
-      {status === "error" && result && active !== "presale_check" && <p className="terminal-result error command-error">{result}</p>}
-    </section>
-  </main>;
+      <section className="terminal-output" aria-live="polite">
+        <div className="output-topline">
+          <span>{content.outputBrand}</span>
+          <span>{activeCommand ? content.outputCommand.replace("{command}", activeCommand.command) : content.awaitingInput}</span>
+        </div>
+        <div className={`typing-line ${activeCommand ? "typing-line-active" : ""}`}>
+          <span className="prompt-mark">›</span>
+          {activeCommand ? <><span className="active-page-name">{activeCommand.command}</span><span className="next-hint">{content.nextHint}</span></> : <span>{typed}</span>}
+          <span className="typing-cursor">█</span>
+        </div>
+
+        {activeCommand && (
+          <div className="command-output">
+            <div className="output-heading">{activeCommand.label} <span>/{activeCommand.key.toUpperCase()}</span></div>
+            <p className="output-text">{displayed}</p>
+            {active === "mint" && <div className="output-actions"><a href={site.reminderUrl} target="_blank" rel="noreferrer">{content.openSeaAction}</a><span>{content.mintStatus}</span></div>}
+            {active === "presale_check" && (
+              <div className="wallet-check">
+                <div className="wallet-address">{wallet ? `${wallet.slice(0, 8)}…${wallet.slice(-6)}` : content.walletNotConnected}</div>
+                <button className="terminal-button" onClick={connectWallet} disabled={status === "loading"}>
+                  {status === "loading" ? content.verifyingButton : wallet ? content.retryButton : content.connectWalletButton}
+                </button>
+                {result && <p className={`terminal-result ${status}`}>{result}</p>}
+              </div>
+            )}
+            {active === "about" && <div className="output-actions"><a href={site.openSeaUrl} target="_blank" rel="noreferrer">{content.collectionAction}</a><span>{content.collectionMeta.replace("{supply}", site.supply)}</span></div>}
+            {active === "faq" && (
+              <div className="faq-list">
+                {faqItems.map(([question, answer], index) => (
+                  <div className={`faq-item ${openFaq === index ? "faq-open" : ""}`} key={question}>
+                    <button className="faq-question" onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}>
+                      <span>{String(index + 1).padStart(2, "0")}</span><b>{question}</b><i>{openFaq === index ? content.faqCollapse : content.faqExpand}</i>
+                    </button>
+                    {openFaq === index && <p className="faq-answer">{answer}</p>}
+                  </div>
+                ))}
+              </div>
+            )}
+            {active === "roadmap" && (
+              <div className="roadmap-list">
+                {content.roadmapItems.map((item) => (
+                  <div className={`roadmap-item ${item.className}`} key={`${item.date}-${item.title}`}>
+                    <span className="roadmap-node"/><span className="roadmap-date">{item.date}</span>
+                    <div><b>{item.title}</b><p>{item.description}</p></div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        <form className="terminal-input-row" onSubmit={(event) => { event.preventDefault(); chooseCommand(input); }}>
+          <label htmlFor="terminal-command">›</label>
+          <input id="terminal-command" value={input} onChange={(event) => setInput(event.target.value)} placeholder={content.inputPlaceholder} autoComplete="off" spellCheck="false" aria-label={content.inputAriaLabel}/>
+          <button type="submit">{content.enterButton}</button>
+        </form>
+        {status === "error" && result && active !== "presale_check" && <p className="terminal-result error command-error">{result}</p>}
+      </section>
+    </main>
+  );
 }
 
 export default function App() {
-  return <div className="terminal-site">
-    <header className="terminal-header">
-      <a className="header-brand" href="#top" aria-label="Ether Archive home" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent("terminal-home")); }}><span>ETHER ARCHIVE</span></a>
-      <div className="header-logos" aria-label="Project links"><a href={config.openSeaUrl} target="_blank" rel="noreferrer" aria-label="OpenSea"><BrandMark src={manifest.assets.openSeaIcon} /></a><a href={config.xUrl} target="_blank" rel="noreferrer" aria-label="X"><BrandMark src={manifest.assets.xIcon} /></a><a href={config.telegramUrl} target="_blank" rel="noreferrer" aria-label="Telegram"><BrandMark src={manifest.assets.telegramIcon} /></a></div>
-    </header>
-    <section className="launch-strip" id="top"><div className="launch-caption"><span className="live-dot" />TIME TO LAUNCH</div><Countdown /><div className="launch-date">31 OCT 2026 <span>/</span> 20:00 GMT+3</div></section>
-    <Terminal />
-    <footer className="terminal-footer"><span>{manifest.footer.bottomLine}</span><span>{manifest.footer.copyright}</span><span>NETWORK: ETHEREUM MAINNET <i className="blinking-cursor">_</i></span></footer>
-  </div>;
+  if (window.location.pathname.replace(/\/$/, "") === site.wlPath) return <WLPage />;
+
+  const socialLinks = [
+    { key: "openSea", href: site.openSeaUrl, label: content.socialLabels.openSea, icon: assets.openSeaIcon },
+    { key: "x", href: site.xUrl, label: content.socialLabels.x, icon: assets.xIcon },
+    { key: "telegram", href: site.telegramUrl, label: content.socialLabels.telegram, icon: assets.telegramIcon },
+    { key: "farcaster", href: site.farcasterUrl, label: content.socialLabels.farcaster, icon: assets.farcasterIcon },
+    { key: "discord", href: site.discordUrl, label: content.socialLabels.discord, icon: assets.discordIcon },
+  ];
+
+  return (
+    <div className="terminal-site">
+      <header className="terminal-header">
+        <a className="header-brand" href={content.homeHref} aria-label={content.homeAriaLabel} onClick={(event) => { event.preventDefault(); window.dispatchEvent(new CustomEvent("terminal-home")); }}><span>{manifest.brand.logoText} {manifest.brand.logoSuffix}</span></a>
+        <a className="wl-header-link" href={site.wlPath}>{content.wlAccessLabel}</a>
+        <div className="header-logos" aria-label={content.socialLinksAriaLabel}>
+          {socialLinks.map((link) => (
+            <a key={link.key} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} title={link.label}>
+              <BrandMark src={link.icon} alt={link.label}/>
+            </a>
+          ))}
+        </div>
+      </header>
+      <section className="launch-strip" id="top">
+        <div className="launch-caption"><span className="live-dot" />{content.launchCaption}</div>
+        <Countdown />
+        <div className="launch-date">{content.mintDateLabel} <span>/</span> {content.mintDateTba}</div>
+      </section>
+      <Terminal />
+      <footer className="terminal-footer">
+        <span>{footer.bottomLine}</span><span>{footer.copyright}</span>
+        <span>{content.networkLabel} <i className="blinking-cursor">_</i></span>
+      </footer>
+    </div>
+  );
 }

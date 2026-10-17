@@ -1,9 +1,16 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ether-archive-terminal",
-  "compatibility_date": "2026-10-13",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "ether-archive-terminal",
+	"compatibility_date": "2026-10-13",
+	"assets": {
+		"directory": "./dist",
+		"not_found_handling": "single-page-application"
+	},
+	"d1_databases": [
+		{
+			"binding": "ether_archive_wl",
+			"database_name": "ether-archive-wl",
+			"database_id": "0ce1134c-0a57-4301-b181-2631635a3427"
+		}
+	]
 }

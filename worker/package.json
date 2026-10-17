@@ -1,0 +1,15 @@
+{
+  "name": "ether-archive-wl-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create ether-archive-wl",
+    "db:init:local": "wrangler d1 execute ether-archive-wl --local --file=./schema.sql",
+    "db:init:remote": "wrangler d1 execute ether-archive-wl --remote --file=./schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

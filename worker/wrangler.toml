@@ -1,0 +1,11 @@
+name = "ether-archive-wl-api"
+main = "src/index.js"
+compatibility_date = "2026-10-15"
+
+[vars]
+FRONTEND_ORIGINS = "https://etherarchive.xyz,https://www.etherarchive.xyz,http://localhost:5173"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ether-archive-wl"
+database_id = "0ce1134c-0a57-4301-b181-2631635a3427"
