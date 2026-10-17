@@ -9,11 +9,11 @@ export const manifest = {
     "xUrl": "https://x.com/EthArchiveNFT",
     "reminderUrl": "https://opensea.io/collection/ether-archive",
     "telegramUrl": "https://t.me/etherarxhive",
-    "wlCampaignTweetUrl": "https://x.com/EthArchiveNFT/status/2111504475462484098?s=20",
+    "wlCampaignTweetUrl": "https://x.com/EthArchiveNFT/status/2111506465462612261",
     "wlApiBaseUrl": "https://ether-archive-wl-api.e-gndz-33.workers.dev",
     "farcasterUrl": "https://farcaster.xyz/etharchivenft",
     "discordUrl": "https://discord.gg/QC9aAzyFwc",
-    "wlPath": "/fcfs"
+    "wlPath": "/wl"
   },
   "brand": {
     "logoText": "ETHER",
