@@ -11,7 +11,7 @@ export const manifest = {
     "telegramUrl": "https://t.me/etherarxhive",
     "wlCampaignTweetUrl": "https://x.com/EthArchiveNFT/status/2111510019762012515",
     "wlApiBaseUrl": "https://ether-archive-wl-api.e-gndz-33.workers.dev",
-    "farcasterUrl": "https://farcaster.xyz/etharchivenft",
+    "farcasterUrl": "https://farcaster.xyz/",
     "discordUrl": "https://discord.gg/QC9aAzyFwc",
     "wlPath": "/wl"
   },
