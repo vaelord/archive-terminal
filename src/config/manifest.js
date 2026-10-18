@@ -5,7 +5,7 @@ export const manifest = {
     "mintDate": null,
     "apiBaseUrl": "https://ether-archive-api.e-gndz-33.workers.dev",
     "presaleCheckPath": "/api/presale/check",
-    "openSeaUrl": "https://opensea.io/collection/ether-archive",
+    "openSeaUrl": "https://opensea.io",
     "xUrl": "https://x.com/EthArchiveNFT",
     "reminderUrl": "https://opensea.io/collection/ether-archive",
     "telegramUrl": "https://t.me/etherarxhive",
@@ -299,7 +299,7 @@ export const manifest = {
       { "key": "presale_check", "command": "//presale_check", "label": "PRESALE CHECK", "description": "Checking your eligibility", "output": "Every archive has its witnesses. Discover whether your wallet has a place among those invited to the opening." },
       { "key": "about", "command": "//about", "label": "ABOUT", "description": "About Ether Archive", "output": "Ethereum is a history written without a final page. Every exchange, every encounter, every passing moment leaves a trace. Ether Archive gathers the feeling of this endless record and imagines it as a sky — a place where fragments of a shared past become something we can look upon. 4,088 skies. 4,088 singular perspectives on what remains." },
       { "key": "faq", "command": "//faq", "label": "FAQ", "description": "Frequently asked questions", "output": "Some stories deserve a closer look. Find your place within the archive." },
-      { "key": "roadmap", "command": "//roadmap", "label": "ROADMAP", "description": "Project roadmap", "output": "The archive is still unfolding. Some pages remain unwritten; their time will come." }
+      { "key": "roadmap", "command": "//roadmap", "label": "ROADMAP", "description": "Project roadmap", "output": "The roadmap is revealed. The journey continues, and the archive has many more stories left to tell.." }
     ],
     "faqItems": [
       ["What is Ether Archive?", "Ether Archive is a collection of 4,088 unique skies inspired by the traces left on Ethereum. Each artwork is a one-of-one fragment of a much larger story — a portrait of a network that remembers."],
@@ -309,13 +309,71 @@ export const manifest = {
       ["Where can I follow updates?", "The story continues beyond these pages. Follow Ether Archive on X and explore the collection on OpenSea."]
     ],
     "roadmapItems": [
-      { "date": "TBA", "title": "THE ARCHIVE OPENS", "description": "Every story begins somewhere. This one begins with the traces we leave behind.", "className": "roadmap-current" },
-      { "date": "TBA", "title": "THE STORY CONTINUES", "description": "Some horizons have yet to reveal themselves.", "className": "roadmap-future" }
-    ],
+  {
+    "date": "DEC 2026",
+    "title": "PROJECT LAUNCH",
+    "description": "The Ether Archive journey begins. Discover a collection built from the traces we leave behind on Ethereum.",
+    "className": "roadmap-current"
+  },
+  {
+    "date": "DEC 2026",
+    "title": "ONLINE GALLERY",
+    "description": "Explore all 4,088 artworks in a dedicated digital gallery preserving the stories behind the collection.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "JAN 2027",
+    "title": "LIVE ARCHIVE",
+    "description": "Explore Ethereum's history through on-chain traces, historical events, and evolving visual narratives.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "Q1 / 2027",
+    "title": "FUTURE ACCESS",
+    "description": "Holding an Ether Archive NFT opens the door to exclusive opportunities and future project benefits.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "Q1 / 2027",
+    "title": "COMMUNITY ARCHIVE",
+    "description": "The community becomes part of the archive, contributing stories, discoveries, and perspectives worth preserving.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "Q2 / 2027",
+    "title": "EARC TOKEN",
+    "description": "Introducing EARC, a limited-supply token designed to support the growing Ether Archive ecosystem.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "Q2 / 2027",
+    "title": "HOLDER AIRDROP",
+    "description": "Eligible Ether Archive holders will have the opportunity to receive EARC tokens according to published distribution rules.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "Q3 / 2027",
+    "title": "ON-CHAIN REWARDS",
+    "description": "Recognizing meaningful on-chain participation through a transparent reward system with clearly defined eligibility criteria.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "Q3 / 2027",
+    "title": "FINE ART PRINTS",
+    "description": "Selected artworks move beyond the screen into physical prints, bringing pieces of the archive into the real world.",
+    "className": "roadmap-future"
+  },
+  {
+    "date": "TBA",
+    "title": "MORE ADVANTAGES ARE TBA!",
+    "description": "The archive continues to evolve. More benefits, experiences, and opportunities will be revealed over time.",
+    "className": "roadmap-future"
+  }
+],
     "introPhrases": ["//mint to approach the archive", "//presale_check to find your place", "//about to discover the story", "//faq to explore the unknown", "//roadmap to follow the unfolding"],
     "typing": { "pauseAtEnd": 850, "typeSpeed": 35, "pauseAtStart": 120, "deleteSpeed": 12, "outputSpeed": 7 },
     "countdownUnits": { "days": "D", "hours": "H", "minutes": "M", "seconds": "S" },
-    "countdownTba": "TBA",
+    "countdownTba": "TBA!",
     "countdownAriaLabel": "Time to launch",
     "availableCommands": "AVAILABLE COMMANDS",
     "commandCount": "[ {count} ]",
@@ -344,7 +402,7 @@ export const manifest = {
     "socialLinksAriaLabel": "Project links",
     "launchCaption": "TIME TO LAUNCH",
     "mintDateLabel": "MINT DATE",
-    "mintDateTba": "TBA",
+    "mintDateTba": "DECEMBER",
     "networkLabel": "NETWORK: ETHEREUM MAINNET",
     "socialLabels": { "openSea": "OpenSea", "x": "X", "telegram": "Telegram", "farcaster": "Farcaster", "discord": "Discord" },
     "apiFallbackPath": "/api/presale/check",

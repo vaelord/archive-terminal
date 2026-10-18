@@ -232,7 +232,7 @@ function Terminal() {
           <div className="command-output">
             <div className="output-heading">{activeCommand.label} <span>/{activeCommand.key.toUpperCase()}</span></div>
             <p className="output-text">{displayed}</p>
-            {active === "mint" && <div className="output-actions"><a href={site.reminderUrl} target="_blank" rel="noreferrer">{content.openSeaAction}</a><span>{content.mintStatus}</span></div>}
+            {active === "mint" && (<div className="output-actions" style={{ opacity: 0.5, pointerEvents: "none" }}><a href={site.reminderUrl} target="_blank" rel="noreferrer">{content.openSeaAction}</a><span>{content.mintStatus}</span></div>)}
             {active === "presale_check" && (
               <div className="wallet-check">
                 <div className="wallet-address">{wallet ? `${wallet.slice(0, 8)}…${wallet.slice(-6)}` : content.walletNotConnected}</div>
@@ -242,7 +242,7 @@ function Terminal() {
                 {result && <p className={`terminal-result ${status}`}>{result}</p>}
               </div>
             )}
-            {active === "about" && <div className="output-actions"><a href={site.openSeaUrl} target="_blank" rel="noreferrer">{content.collectionAction}</a><span>{content.collectionMeta.replace("{supply}", site.supply)}</span></div>}
+            {active === "about" && <div className="output-actions" style={{ opacity: 0.5, pointerEvents: "none" }}><a href={site.openSeaUrl} target="_blank" rel="noreferrer">{content.collectionAction}</a><span>{content.collectionMeta.replace("{supply}", site.supply)}</span></div>}
             {active === "faq" && (
               <div className="faq-list">
                 {faqItems.map(([question, answer], index) => (
