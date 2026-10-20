@@ -8,7 +8,7 @@ export const manifest = {
     "openSeaUrl": "https://opensea.io",
     "xUrl": "https://x.com/EthArchiveNFT",
     "reminderUrl": "https://opensea.io/collection/ether-archive",
-    "telegramUrl": "https://t.me/etherarxhive",
+    "telegramUrl": "https://t.me/EtherArchiveOfficial",
     "wlCampaignTweetUrl": "https://x.com/EthArchiveNFT/status/2111510019762012515",
     "wlApiBaseUrl": "https://ether-archive-wl-api.e-gndz-33.workers.dev",
     "farcasterUrl": "https://farcaster.xyz/",
