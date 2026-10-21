@@ -82,6 +82,11 @@ export default function WhitepaperPage() {
           <div className="whitepaper-meta">
             <span>ETHER ARCHIVE</span><span>VERSION 1.0.2</span><span>OCTOBER 2026</span>
           </div>
+          <div className="whitepaper-hero-actions">
+  <a className="whitepaper-narrative-button" href="/narrative">
+    READ OUR NARRATIVE <Arrow />
+  </a>
+</div>
         </section>
 
         <div className="whitepaper-layout">

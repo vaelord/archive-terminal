@@ -303,3 +303,127 @@ html.whitepaper-scroll-enabled body {
 html.whitepaper-scroll-enabled #root {
   width: 100%;
 }
+
+
+/* Whitepaper hero narrative link */
+
+.whitepaper-hero-actions {
+  display: flex;
+  margin-top: 28px;
+}
+
+.whitepaper-narrative-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 14px 16px;
+  border: 1px solid #555;
+  background: transparent;
+  color: #ddd;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  letter-spacing: .09em;
+  transition:
+    background .2s ease,
+    color .2s ease,
+    border-color .2s ease;
+}
+
+.whitepaper-narrative-button:hover {
+  border-color: #f5f5f5;
+  background: #f5f5f5;
+  color: #050505;
+}
+
+.whitepaper-narrative-button span {
+  font-size: 13px;
+}
+
+.narrative-back-button {
+  margin-top: 32px;
+}
+
+/* Narrative page */
+
+.narrative-content {
+  margin-top:100px;
+  max-width: 850px;
+  margin-left: auto;
+}
+
+.narrative-section {
+  padding-bottom: 64px;
+  margin-bottom: 64px;
+}
+
+.narrative-section h2 {
+  max-width: 700px;
+}
+
+.narrative-section > p:not(.whitepaper-section-index) {
+  max-width: 680px;
+}
+
+.narrative-closing {
+  padding: 20px 0 36px;
+}
+
+.narrative-closing h2 {
+  max-width: 850px;
+  margin: 22px 0;
+  font-size: clamp(30px, 5.2vw, 58px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -.065em;
+}
+
+.narrative-closing h2 span {
+  color: #777;
+}
+
+.narrative-signature {
+  max-width: 620px;
+  margin: 24px 0 34px;
+  color: #999;
+  font-family: "Work Sans", sans-serif;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.narrative-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  padding-top: 22px;
+  border-top: 1px solid #252525;
+}
+
+.narrative-links a {
+  color: #888;
+  font-size: 9px;
+  letter-spacing: .08em;
+}
+
+.narrative-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .whitepaper-hero-actions {
+    margin-top: 24px;
+  }
+
+  .narrative-content {
+    margin-left: 0;
+  }
+
+  .narrative-section {
+    padding-bottom: 38px;
+    margin-bottom: 38px;
+  }
+
+  .narrative-closing h2 {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+}
