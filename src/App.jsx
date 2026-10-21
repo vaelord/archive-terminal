@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { BrowserProvider } from "ethers";
 import { manifest } from "./config/manifest.js";
 import WLPage from "./pages/WLPage.jsx";
+import WhitepaperPage from "./pages/WhitepaperPage.jsx";
 
 const { site, terminal: content, assets, footer } = manifest;
 const commands = content.commands;
@@ -280,7 +281,9 @@ function Terminal() {
 }
 
 export default function App() {
-  if (window.location.pathname.replace(/\/$/, "") === site.wlPath) return <WLPage />;
+  const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+  if (currentPath === site.wlPath) return <WLPage />;
+  if (currentPath === "/whitepaper") return <WhitepaperPage />;
 
   const socialLinks = [
     { key: "openSea", href: site.openSeaUrl, label: content.socialLabels.openSea, icon: assets.openSeaIcon },
@@ -294,7 +297,7 @@ export default function App() {
     <div className="terminal-site">
       <header className="terminal-header">
         <a className="header-brand" href={content.homeHref} aria-label={content.homeAriaLabel} onClick={(event) => { event.preventDefault(); window.dispatchEvent(new CustomEvent("terminal-home")); }}><span>{manifest.brand.logoText} {manifest.brand.logoSuffix}</span></a>
-        <a className="wl-header-link" href={site.wlPath}>{content.wlAccessLabel}</a>
+        <div className="header-page-links"><a className="whitepaper-header-link" href="/whitepaper">WHITEPAPER ↗</a><a className="wl-header-link" href={site.wlPath}>{content.wlAccessLabel}</a></div>
         <div className="header-logos" aria-label={content.socialLinksAriaLabel}>
           {socialLinks.map((link) => (
             <a key={link.key} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} title={link.label}>
