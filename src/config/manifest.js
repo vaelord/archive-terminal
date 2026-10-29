@@ -3,7 +3,7 @@ export const manifest = {
     "collectionName": "Ether Archive",
     "supply": "4,088",
     "mintDate": "2026-12-17T19:00:00Z",
-    "apiBaseUrl": "ether-archive-core-api.e-gndz-33.workers.dev",
+    "apiBaseUrl": "https://ether-archive-core-api.e-gndz-33.workers.dev",
     "presaleCheckPath": "/api/presale/check",
     "openSeaUrl": "https://opensea.io",
     "xUrl": "https://x.com/EthArchiveNFT",
