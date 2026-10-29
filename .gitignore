@@ -9,20 +9,45 @@ build/
 .env
 .env.*
 !.env.example
+!.env.sample
 
-# Debug logs
+worker/.env
+worker/.env.*
+!worker/.env.example
+!worker/.env.sample
+
+.dev.vars
+.dev.vars.*
+worker/.dev.vars
+worker/.dev.vars.*
+
+# Wrangler local state
+.wrangler/
+worker/.wrangler/
+
+# Deployment tooling
+.vercel/
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
-*.log
 
-# Local development
+# Operating system
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
+Desktop.ini
 
-# Test and coverage
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# Test and coverage output
 coverage/
 
 # Temporary files

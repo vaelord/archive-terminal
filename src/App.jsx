@@ -59,6 +59,11 @@ function Terminal() {
   const [result, setResult] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
   const activeCommand = useMemo(() => commands.find((item) => item.key === active), [active]);
+  const verifyToken = new URLSearchParams(window.location.search).get("verify");
+
+  useEffect(() => {
+    if (verifyToken) setActive("presale_check");
+  }, [verifyToken]);
 
   useEffect(() => {
     const goHome = () => {
@@ -187,18 +192,57 @@ function Terminal() {
       setWallet(address);
 
       const base = String(site.apiBaseUrl || "").replace(/\/$/, "");
-      const path = site.presaleCheckPath || content.apiFallbackPath;
+      const isDiscordVerification = Boolean(verifyToken);
+      const path = isDiscordVerification
+        ? "/api/discord/verify/complete"
+        : (site.presaleCheckPath || content.apiFallbackPath);
+      let body = { [content.walletRequestField]: address };
+
+      if (isDiscordVerification) {
+        const message = [
+          "Ether Archive Discord Verification",
+          `Session: ${verifyToken}`,
+          `Wallet: ${address.toLowerCase()}`,
+          "Purpose: Verify GTD/FCFS allocation and assign Discord roles.",
+          "This signature does not authorize any transaction."
+        ].join("\n");
+        const signature = await signer.signMessage(message);
+        body = { token: verifyToken, wallet: address, message, signature };
+      }
+
       const response = await fetch(`${base}${path}`, {
         method: content.apiMethod,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ [content.walletRequestField]: address }),
+        body: JSON.stringify(body),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || content.messages.apiHttpError.replace("{status}", response.status));
-      if (typeof data.eligible !== "boolean") throw new Error(content.messages.unexpectedApiResponse);
 
-      setStatus(data.eligible ? "eligible" : "ineligible");
-      setResult(data.eligible ? content.messages.eligible : content.messages.ineligible);
+      const allocations = Array.isArray(data.allocations) ? data.allocations : [];
+      if (isDiscordVerification) {
+        setStatus(allocations.length ? "eligible" : "ineligible");
+        setResult(allocations.length
+          ? `Allocation confirmed: ${allocations.join(" + ")}. Return to Discord; the bot will assign your role${allocations.length > 1 ? "s" : ""}.`
+          : "Wallet ownership verified, but no GTD or FCFS allocation was found. No tier role will be assigned.");
+        return;
+      }
+
+      if (Array.isArray(data.allocations)) {
+        setStatus(allocations.length ? "eligible" : "ineligible");
+        if (allocations.includes("GTD") && allocations.includes("FCFS")) {
+          setResult(content.messages.bothAllocations || "GTD and FCFS allocations confirmed for this wallet.");
+        } else if (allocations.includes("GTD")) {
+          setResult(content.messages.gtdAllocation || "GTD allocation confirmed for this wallet.");
+        } else if (allocations.includes("FCFS")) {
+          setResult(content.messages.fcfsAllocation || "FCFS allocation confirmed for this wallet.");
+        } else {
+          setResult(content.messages.ineligible);
+        }
+      } else {
+        if (typeof data.eligible !== "boolean") throw new Error(content.messages.unexpectedApiResponse);
+        setStatus(data.eligible ? "eligible" : "ineligible");
+        setResult(data.eligible ? content.messages.eligible : content.messages.ineligible);
+      }
     } catch (error) {
       setStatus("error");
       setResult(error?.code === 4001 ? content.messages.walletRejected : (error?.message || content.messages.walletError));
@@ -232,7 +276,7 @@ function Terminal() {
 
         {activeCommand && (
           <div className="command-output">
-            <div className="output-heading">{activeCommand.label} <span>/{activeCommand.key.toUpperCase()}</span></div>
+            <div className="output-heading">{verifyToken ? "DISCORD WALLET VERIFICATION" : activeCommand.label} <span>/{activeCommand.key.toUpperCase()}</span></div>
             <p className="output-text">{displayed}</p>
             {active === "mint" && (<div className="output-actions" style={{ opacity: 0.5, pointerEvents: "none" }}><a href={site.reminderUrl} target="_blank" rel="noreferrer">{content.openSeaAction}</a><span>{content.mintStatus}</span></div>)}
             {active === "presale_check" && (

@@ -2,7 +2,7 @@
   "site": {
     "collectionName": "Ether Archive",
     "supply": "4,088",
-    "mintDate": "2026-10-31T17:00:00Z",
+    "mintDate": "2026-12-17T19:00:00Z",
     "apiBaseUrl": "https://ether-archive-api.e-gndz-33.workers.dev",
     "presaleCheckPath": "/api/presale/check",
     "openSeaUrl": "https://opensea.io/collection/ether-archive",

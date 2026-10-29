@@ -2,7 +2,7 @@ export const manifest = {
   "site": {
     "collectionName": "Ether Archive",
     "supply": "4,088",
-    "mintDate": null,
+    "mintDate": "2026-12-17T19:00:00Z",
     "apiBaseUrl": "https://ether-archive-api.e-gndz-33.workers.dev",
     "presaleCheckPath": "/api/presale/check",
     "openSeaUrl": "https://opensea.io",
