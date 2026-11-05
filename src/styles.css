@@ -246,6 +246,28 @@
 .whitepaper-hero{padding:clamp(55px,10vh,112px) 0 44px;border-bottom:1px solid #252525}
 .whitepaper-eyebrow,.whitepaper-section-index{font-size:9px;letter-spacing:.15em;color:#777;margin:0 0 25px}
 .whitepaper-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#eee;margin-right:9px;vertical-align:1px;box-shadow:0 0 10px #aaa}
+/* Partner logo area */
+.whitepaper-calendar-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0 !important;
+    margin: 0 auto;
+    border-bottom: 1px solid #191919;
+    grid-template-columns: none !important;
+    gap: 12px;
+    border-bottom: none !important;
+}
+
+.whitepaper-calendar-link img {
+    display: block;
+    width: 110px !important;
+    height: auto !important;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 50px auto;
+}
 .whitepaper-hero h1{font-size:clamp(48px,9.5vw,112px);font-weight:400;line-height:.88;letter-spacing:-.085em;margin:0;max-width:900px}
 .whitepaper-hero h1 span,.whitepaper-section h2 span{color:#777}
 .whitepaper-lede{font-family:"Work Sans",sans-serif;font-size:clamp(14px,1.8vw,18px);line-height:1.8;color:#999;max-width:570px;margin:32px 0 36px}

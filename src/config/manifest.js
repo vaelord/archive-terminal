@@ -13,7 +13,9 @@ export const manifest = {
     "wlApiBaseUrl": "https://ether-archive-wl-api.e-gndz-33.workers.dev",
     "farcasterUrl": "https://farcaster.xyz/",
     "discordUrl": "https://discord.gg/QC9aAzyFwc",
-    "wlPath": "/wl"
+    "wlPath": "/wl",
+    "ClndrUrl": "https://nftcalendar.io",
+    "ClndrIcon": "/logos/calendar.svg"
   },
   "brand": {
     "logoText": "ETHER",

@@ -94,6 +94,10 @@ export default function WhitepaperPage() {
             <p className="whitepaper-toc-title">CONTENTS</p>
             {sections.map((section) => <a key={section.id} href={`#${section.id}`}><span>{section.number}</span>{section.title}</a>)}
             <button type="button" onClick={() => window.print()}>PRINT / SAVE PDF ↓</button>
+            <a href={site.ClndrUrl} className="whitepaper-calendar-link" target="_blank" rel="noreferrer">
+              <img src={site.ClndrIcon} alt="Calendar" />
+              <Arrow />
+            </a>
           </aside>
 
           <div className="whitepaper-content">
