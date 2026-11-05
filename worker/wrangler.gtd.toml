@@ -1,0 +1,15 @@
+name = "ether-archive-gtd-api"
+main = "src/gtd-index.js"
+compatibility_date = "2026-10-15"
+workers_dev = true
+
+[vars]
+FRONTEND_ORIGINS = "https://etherarchive.xyz,https://www.etherarchive.xyz,http://localhost:5173"
+PUBLIC_FRONTEND_URL = "https://etherarchive.xyz"
+DISCORD_CLIENT_ID = "1560680019888570438"
+DISCORD_GUILD_ID = "1558099776736596128"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ether-archive-gtd"
+database_id = "9122dba2-ea1e-4b00-91c4-55be5bc0f117"

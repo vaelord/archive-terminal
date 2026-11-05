@@ -3,6 +3,7 @@ import { BrowserProvider } from "ethers";
 import { manifest } from "./config/manifest.js";
 import WhitepaperPage from "./pages/WhitepaperPage.jsx";
 import NarrativePage from "./pages/NarrativePage.jsx";
+import GtdPage from "./pages/GtdPage.jsx";
 
 const { site, terminal: content, assets, footer } = manifest;
 const commands = content.commands;
@@ -326,6 +327,7 @@ function Terminal() {
 
 export default function App() {
   const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+  if (currentPath === "/gtd") return <GtdPage />;
 if (currentPath === "/whitepaper") return <WhitepaperPage />;
 if (currentPath === "/narrative") return <NarrativePage />;
 

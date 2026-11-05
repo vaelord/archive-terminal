@@ -1,5 +1,7 @@
 export const manifest = {
   "site": {
+    "gtdCampaignTweetUrl": "https://x.com/EthArchiveNFT/status/2116196314438410244?a=2QNk9j8NPpj7GGqtaT8&s=20",
+    "gtdApiBaseUrl": "GTD_WORKER_URL",
     "collectionName": "Ether Archive",
     "supply": "4,088",
     "mintDate": "2026-12-17T19:00:00Z",

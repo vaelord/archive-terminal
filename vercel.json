@@ -1,6 +1,9 @@
-
 {
   "rewrites": [
+    {
+      "source": "/api/gtd/:path*",
+      "destination": "https://ether-archive-gtd-api.e-gndz-33.workers.dev/api/gtd/:path*"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

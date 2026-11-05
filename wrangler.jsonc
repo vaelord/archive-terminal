@@ -11,6 +11,12 @@
 			"binding": "ether_archive_wl",
 			"database_name": "ether-archive-wl",
 			"database_id": "0ce1134c-0a57-4301-b181-2631635a3427"
+		},
+		{
+			"binding": "ether_archive_gtd",
+			"database_name": "ether-archive-gtd",
+			"database_id": "9122dba2-ea1e-4b00-91c4-55be5bc0f117",
+			"remote": true
 		}
 	]
 }

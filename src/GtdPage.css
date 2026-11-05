@@ -1,0 +1,381 @@
+
+
+.gtd-page {
+  width: 100%;
+}
+
+.gtd-progress {
+  margin: 32px 0;
+}
+
+.gtd-progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: #999;
+}
+
+.gtd-progress-track {
+  width: 100%;
+  height: 4px;
+  background: #222;
+  overflow: hidden;
+}
+
+.gtd-progress-fill {
+  height: 100%;
+  background: #fff;
+  transition: width 0.3s ease;
+}
+
+.gtd-section {
+  margin-top: 38px;
+}
+
+.gtd-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.gtd-section-heading > span {
+  font-size: 11px;
+  color: #777;
+  letter-spacing: 1px;
+}
+
+.gtd-section-heading h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.gtd-task-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #252525;
+}
+
+.gtd-task,
+.gtd-discord-task {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid #252525;
+}
+
+.gtd-task-number {
+  font-size: 12px;
+  color: #666;
+  min-width: 22px;
+}
+
+.gtd-task-content,
+.gtd-discord-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.gtd-task-content h3,
+.gtd-discord-content h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.gtd-task-content p,
+.gtd-discord-content p {
+  margin: 0;
+  font-size: 12px;
+  color: #777;
+  line-height: 1.5;
+}
+
+.gtd-task-button {
+  border: 1px solid #444;
+  background: transparent;
+  color: #fff;
+  padding: 11px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.gtd-task-button:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.gtd-task-button span {
+  margin-left: 10px;
+}
+
+.gtd-task-done {
+  color: #aaa;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.gtd-task.is-completed,
+.gtd-discord-task.is-completed {
+  opacity: 0.65;
+}
+
+.gtd-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.gtd-form-field label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #999;
+}
+
+.gtd-form-field input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0b0b0b;
+  border: 1px solid #292929;
+  color: #fff;
+  padding: 15px;
+  outline: none;
+  font: inherit;
+  font-size: 13px;
+}
+
+.gtd-form-field input:focus {
+  border-color: #777;
+}
+
+.gtd-form-field input::placeholder {
+  color: #555;
+}
+
+.gtd-submit-button {
+  width: 100%;
+  border: 1px solid #fff;
+  background: #fff;
+  color: #000;
+  padding: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.gtd-submit-button:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.gtd-submit-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.gtd-form-note,
+.gtd-ticket-note {
+  text-align: center;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 14px;
+}
+
+.gtd-error {
+  color: #ff7777;
+  font-size: 12px;
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+.gtd-ticket-result {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.gtd-success-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.gtd-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #555;
+  border-radius: 50%;
+  font-size: 17px;
+  margin-bottom: 16px;
+}
+
+.gtd-success-heading h1 {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin: 0 0 10px;
+}
+
+.gtd-success-heading p {
+  color: #888;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.gtd-ticket {
+  background:
+    radial-gradient(circle at 15% 20%, #222 0, transparent 35%),
+    #080808;
+  border: 1px solid #444;
+  padding: 24px;
+  color: #fff;
+  font-family: inherit;
+}
+
+.gtd-ticket-top,
+.gtd-ticket-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.gtd-ticket-brand {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.gtd-ticket-type {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #999;
+  text-align: right;
+}
+
+.gtd-ticket-main {
+  padding: 48px 0 38px;
+  text-align: center;
+}
+
+.gtd-ticket-eyebrow {
+  color: #888;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.gtd-ticket-serial {
+  font-size: clamp(25px, 7vw, 38px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  overflow-wrap: anywhere;
+}
+
+.gtd-ticket-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0;
+}
+
+.gtd-ticket-divider span {
+  height: 1px;
+  background: #333;
+  flex: 1;
+}
+
+.gtd-ticket-divider span:first-child {
+  margin-left: -24px;
+}
+
+.gtd-ticket-divider span:last-child {
+  margin-right: -24px;
+}
+
+.gtd-ticket-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: left;
+}
+
+.gtd-ticket-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gtd-ticket-details span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #777;
+}
+
+.gtd-ticket-details strong {
+  font-size: 13px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.gtd-ticket-bottom {
+  border-top: 1px solid #333;
+  padding-top: 18px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.gtd-ticket-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.gtd-download-button {
+  width: 100%;
+  padding: 15px;
+}
+
+@media (max-width: 600px) {
+  .gtd-task,
+  .gtd-discord-task {
+    flex-wrap: wrap;
+  }
+
+  .gtd-task-content,
+  .gtd-discord-content {
+    flex-basis: calc(100% - 40px);
+  }
+
+  .gtd-task-action {
+    width: 100%;
+    padding-left: 38px;
+  }
+
+  .gtd-task-action .gtd-task-button {
+    width: 100%;
+  }
+
+  .gtd-discord-task > .gtd-task-button {
+    width: 100%;
+  }
+
+  .gtd-ticket {
+    padding: 18px;
+  }
+}
